@@ -6,6 +6,16 @@ const JobPage = () => {
   const [job, setJob] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchJob = async () => {
+      const response = await fetch(`/api/jobs/${id}`);
+      const data = await response.json();
+      setJob(data);
+    };
+
+    fetchJob();
+  }, [id]);
+
   const deleteJob = async () => {
     console.log(JobPage);
   };
@@ -25,13 +35,14 @@ const JobPage = () => {
       <p>Location: {job.location}</p>
       <p>Salary: {job.salary}</p>
       <p>Posted Date: {job.postedDate}</p>
+
       <Link to={`/edit-job/${id}`}>
         <button>Edit Job</button>
       </Link>
+
       <button onClick={deleteJob}>Delete Job</button>
     </div>
   );
 };
 
 export default JobPage;
-
