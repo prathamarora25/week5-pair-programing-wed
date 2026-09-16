@@ -4,6 +4,16 @@ import { useEffect, useState } from "react";
 const Home = () => {
   const [jobs, setJobs] = useState([]);
 
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const response = await fetch("/api/jobs");
+      const data = await response.json();
+      setJobs(data);
+    };
+
+    fetchJobs();
+  }, []);
+
   return (
     <div className="home">
       <div className="job-list">
@@ -16,4 +26,3 @@ const Home = () => {
 };
 
 export default Home;
-
